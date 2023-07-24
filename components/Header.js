@@ -95,11 +95,21 @@ function Header({ placeholder }) {
                   setMenuOpen("primaryNav");
                 }}
               />
-              <ul className="text-slate-300 mx-11 mt-6 mb-11">
-                <li className="menuLink">
+              <ul className="text-stone-400 mx-11 mt-6 mb-11">
+                <li
+                  className={
+                    router.pathname == "/" ? "menuLink activeLi" : "menuLink"
+                  }
+                >
                   <Link href="/">Vystoupení</Link>
                 </li>
-                <li className="relative menuLink">
+                <li
+                  className={
+                    router.pathname == "/account"
+                      ? "menuLink activeLi"
+                      : "menuLink"
+                  }
+                >
                   <Link href="/account" className="flex items-center">
                     Přidat / odebrat vystoupení
                     {/* <PlusCircleIcon className="h-5 ml-2" /> */}
@@ -111,7 +121,7 @@ function Header({ placeholder }) {
                 </li>
               </ul>
               <div className="border border-gray-500 mb-11 w-52 mx-auto" />
-              <div className=" w-24 flex items-center  justify-between mx-auto text-slate-300">
+              <div className=" w-24 flex items-center  justify-between mx-auto text-stone-400">
                 <a className="hover:text-white" href="#">
                   <FontAwesomeIcon className="h-4 " icon={faFacebookF} />
                 </a>

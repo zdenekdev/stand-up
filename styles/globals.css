@@ -16,6 +16,9 @@
   .menuLink {
     @apply hover:text-white mb-10 font-semibold;
   }
+  .activeLi {
+    @apply text-white;
+  }
   .primaryNav {
     @apply translate-x-66 xl:translate-x-0  fixed bottom-0 right-0 top-0 text-slate-300 w-66 bg-black text-white opacity-90 transition duration-200 ease-in-out z-50;
   }
