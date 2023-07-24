@@ -14,13 +14,13 @@
     @apply hover:text-red-400;
   }
   .menuLink {
-    @apply hover:text-white mb-5 font-semibold;
+    @apply hover:text-white mb-10 font-semibold;
   }
   .primaryNav {
     @apply translate-x-66 xl:translate-x-0  fixed bottom-0 right-0 top-0 text-slate-300 w-66 bg-black text-white opacity-90 transition duration-200 ease-in-out z-50;
   }
   .input {
-    @apply border border-slate-500 focus:shadow-lg rounded-md outline-none pl-2;
+    @apply border border-slate-400 shadow-sm focus:shadow-lg rounded-md outline-none pl-2;
   }
   .inputDiv {
     @apply flex flex-col mb-6 relative;
@@ -36,7 +36,7 @@
   }
   .toggle.show {
     @apply flex flex-col flex-grow transition-all duration-300 ease-in-out 
-    -translate-y-76 max-h-120;
+    -translate-y-76 h-140 xsm:h-128;
   }
   .toggle {
     @apply flex flex-col flex-grow transition-all duration-300 ease-in-out
@@ -53,13 +53,9 @@
   }
 }
 
-.toggle.show {
-  height: 30rem;
-}
-
-.ahoj {
+/* .ahoj {
   grid-template-columns: repeat(3, 1fr);
-}
+} */
 
 /* navbar -- */
 
@@ -77,14 +73,6 @@
 } */
 
 /* -- DATE RANGE SELECTOR CSS --  */
-
-/* background: #eff2f7; */
-/* hover -- background: #e1e7f0;  */
-/* šipka -- #34495e */
-
-/* .rdrDayWeekend {
-    background-color: red !important;
-  } */
 
 .rdrCalendarWrapper {
   color: #000000;
@@ -190,14 +178,14 @@
   margin: 0 0 0 0.5rem !important;
   border-width: 7px 10px 7px 7px !important;
   border-color: transparent #34495e transparent transparent;
-  transform: translate(-3px, 0px);
+  transform: translate(-5px, 0px) !important;
 }
 
 .rdrNextButton i {
   margin: 0 0 0 0.7rem !important;
   border-width: 7px 7px 7px 10px !important;
   border-color: transparent transparent transparent rgb(52, 73, 94);
-  transform: translate(3px, 0px);
+  transform: translate(1px, 0px) !important;
 }
 
 .rdrWeekDays {
@@ -262,10 +250,10 @@
 .rdrDayToday .rdrDayNumber span:after {
   content: "";
   position: absolute;
-  bottom: 8px !important;
+  bottom: 6px !important;
   left: 50%;
   transform: translate(-50%, 0);
-  width: 28px !important;
+  width: 22px !important;
   height: 2px;
   border-radius: 2px;
   background: #34495e !important;
@@ -1368,12 +1356,17 @@
   width: 3rem;
   line-height: 3rem;
 }
-@media (max-width: 400px), (max-height: 550px) {
+@media (max-width: 31em), (max-height: 34em) {
   .react-datepicker__portal .react-datepicker__day-name,
   .react-datepicker__portal .react-datepicker__day,
   .react-datepicker__portal .react-datepicker__time-name {
     width: 2rem;
     line-height: 2rem;
+  }
+  .rdrMonth {
+    padding: 0;
+    max-width: 20rem;
+    /* max-width: 100%; */
   }
 }
 .react-datepicker__portal .react-datepicker__current-month,
@@ -1399,4 +1392,9 @@
   padding: 0;
   width: 1px;
   white-space: nowrap;
+}
+
+/* --- DIALOG WINDOW ---  */
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+  border-radius: 10px !important;
 }

@@ -11,7 +11,11 @@ function FilterCountries() {
     <div className="text-lg font-light  flex-grow">
       <ul className="">
         {countries.map((cntry) => (
-          <li className="filterBtn" onClick={() => dispatch(country(cntry))}>
+          <li
+            key={cntry}
+            className="filterBtn"
+            onClick={() => dispatch(country(cntry))}
+          >
             {cntry}
           </li>
         ))}

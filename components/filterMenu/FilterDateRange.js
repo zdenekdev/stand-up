@@ -107,22 +107,22 @@ function FilterDateRange({ selected }) {
   useEffect(() => {
     setCustomDrMenu("toggle");
 
-    router.push({
-      query: {
-        country: filter.country
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase(),
-        place: filter.place
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase(),
-        date: filter.dateRangeT
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase(),
-      },
-    });
+    // router.push({
+    //   query: {
+    //     country: filter.country
+    //       .normalize("NFD")
+    //       .replace(/[\u0300-\u036f]/g, "")
+    //       .toLowerCase(),
+    //     place: filter.place
+    //       .normalize("NFD")
+    //       .replace(/[\u0300-\u036f]/g, "")
+    //       .toLowerCase(),
+    //     date: filter.dateRangeT
+    //       .normalize("NFD")
+    //       .replace(/[\u0300-\u036f]/g, "")
+    //       .toLowerCase(),
+    //   },
+    // });
   }, [filter]);
 
   const search = () => {
@@ -157,8 +157,9 @@ function FilterDateRange({ selected }) {
       <div className={customDrMenu}>
         <div className="flex-grow">
           <ul>
-            {dateRangeTitle.map((dRange) => (
+            {dateRangeTitle.map((dRange, i) => (
               <li
+                key={i}
                 className="filterBtn flex justify-between"
                 onClick={() => {
                   dispatch(dateRangeT(dRange.title));
@@ -177,14 +178,14 @@ function FilterDateRange({ selected }) {
             <span>Vybrat dny</span>
           </button>
         </div>
-        <div className="mt-10">
+        <div className="mt-10 xsm:h-108 h-124">
           <button
             className="filterBtn"
             onClick={() => setCustomDrMenu("toggle")}
           >
             Zpět
           </button>
-          <div className="ml-auto mr-auto flex flex-col flex-grow items-center mt-5">
+          <div className="ml-auto mr-auto flex flex-col flex-grow items-center mt-5 justify-between h-full">
             <DateRange
               minDate={new Date()}
               onChange={handleSelect}
@@ -197,7 +198,7 @@ function FilterDateRange({ selected }) {
               rangeColors={["#FD5B61"]}
             />
 
-            <div className="flex">
+            <div className="flex flex-col xsm:flex-row">
               <div className="mx-5 flex border-2 border-slate-500  w-40 rounded-lg justify-center">
                 <h1 className=" p-2 rounded-md bg-red">{range}</h1>
 
@@ -211,9 +212,9 @@ function FilterDateRange({ selected }) {
                   }}
                 /> */}
               </div>
-              <ChevronDoubleRightIcon className="self-center h-4 mx-2 -translate-y-px" />
+              <ChevronDoubleRightIcon className="self-center h-4 mx-2 -translate-y-px invisible xsm:visible" />
               <button
-                className="mx-5 bg-red-400 text-white px-5  rounded-xl border-2 border-red-400 active:scale-95"
+                className="mx-5 bg-red-400 text-white px-5 py-2  rounded-xl border-2 border-red-400 hover:shadow-lg active:scale-95"
                 onClick={search}
               >
                 Vyhledat

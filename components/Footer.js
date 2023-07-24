@@ -13,19 +13,13 @@ function Footer() {
     <div className="flex py-7 mt-10 bg-gray-100">
       <div className="flex justify-between mx-auto w-11/12 max-w-5xl">
         <div className="text-sm text-gray-800 flex flex-col">
-          <h5 className="font-bold">VYSTOUPENI.cz</h5>
+          <h5 className="font-bold">Standup.cz</h5>
 
           <Link className="linkHover" href="/">
             Vystoupení
           </Link>
           <Link className="linkHover" href="/account">
             Přidat vystoupení
-          </Link>
-          <Link className="linkHover" href="#">
-            Videa
-          </Link>
-          <Link className="linkHover" href="#">
-            Tip na video
           </Link>
 
           <a className="linkHover" href="#">

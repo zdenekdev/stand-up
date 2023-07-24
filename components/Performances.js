@@ -1,6 +1,10 @@
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  PlusCircleIcon,
+} from "@heroicons/react/24/solid";
 import { FaceFrownIcon } from "@heroicons/react/24/outline";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, Link, MenuItem, Select } from "@mui/material";
 
 import { format, setDate, toDate } from "date-fns";
 import { cs } from "date-fns/locale";
@@ -172,13 +176,13 @@ function Performances() {
   useEffect(() => {
     funkce();
     setSelected(null);
-    router.push({
-      query: {
-        place: filter.place,
-        after: format(new Date(startDate), "yyyy-MM-dd"),
-        before: format(new Date(endDate), "yyyy-MM-dd"),
-      },
-    });
+    // router.push({
+    //   query: {
+    //     place: filter.place,
+    //     after: format(new Date(startDate), "yyyy-MM-dd"),
+    //     before: format(new Date(endDate), "yyyy-MM-dd"),
+    //   },
+    // });
   }, [filter]);
 
   // navigation --
@@ -222,14 +226,17 @@ function Performances() {
 
   return (
     <div className="flex flex-col lg:items-stretch">
-      <div className="lg:border-b border-slate-500 lg:px-8 lg:fixed relative top-16 lg:left-0 right-0 xl:right-64 bg-white z-30">
+      <div className="lg:border-b border-slate-500 lg:fixed relative top-16 lg:left-0 right-0 xl:right-66 bg-white z-30">
         <div className="flex flex-col lg:flex-row lg:justify-left outline-none select-none">
-          <div className="flex flex-1 max-w-5xl lg:mx-auto">
+          <div className="flex flex-1 max-w-5xl lg:mx-auto lg:px-8">
             <div className="flex flex-col flex-1 lg:flex-row">
               {navData.map((item, i) => (
-                <div className="border-b border-slate-500 lg:border-b-transparent relative px-8 lg:px-0">
+                <div
+                  key={item.title}
+                  className="border-b border-slate-500 lg:border-b-transparent relative px-4 lg:px-0"
+                >
                   <div
-                    className="flex flex-col whitespace-nowrap mr-11"
+                    className="flex flex-col whitespace-nowrap lg:mr-11"
                     ref={menuRef.current[i]}
                   >
                     <div
@@ -258,7 +265,7 @@ function Performances() {
         </div>
       </div>
 
-      <div className=" max-w-5xl self-center mt-16 lg:mt-32 flex flex-col mb-8 w-11/12">
+      <div className="max-w-5xl self-center mt-16 lg:mt-32 flex flex-col mb-8 px-4 lg:px-8 w-full">
         <h1 className="text-2xl my-8">
           {filter.place === "Všechna města" && filter.dateRangeT === "Kdykoliv"
             ? filter.country
@@ -274,8 +281,9 @@ function Performances() {
         <div className={results}>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {performances.map(
-              ({ city, date, description, performer, place, url }) => (
+              ({ city, date, description, performer, place, url, id }) => (
                 <Performance
+                  key={id}
                   city={city}
                   date={format(new Date(date), "d.M.yyyy")}
                   description={description}
@@ -290,11 +298,11 @@ function Performances() {
         <div className={noResults}>
           <div className="h-96 flex justify-center items-center flex-col  rounded-lg">
             <div className=" p-16 rounded-xl flex flex-col">
-              <div>
+              <div className="flex flex-col justify-center">
                 <MagnifyingGlassIcon className="h-8 text-red-400" />
                 <h2
                   className="p-3
-               text-xl"
+               text-xl text-center"
                 >
                   Pro tento výběr nebyly nalezeny žádné výsledky
                 </h2>

@@ -1,5 +1,13 @@
 import { signOut } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import {
   getDownloadURL,
   getStorage,
@@ -8,7 +16,7 @@ import {
 } from "firebase/storage";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { colRef, removePerformance, db, app, auth } from "../firebase";
+import { colRef, db, app, auth } from "../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Calendar } from "react-date-range";
 import ReactDatePicker from "react-datepicker";
@@ -16,6 +24,8 @@ import { cs } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import {
+  CalendarDaysIcon,
+  CalendarIcon,
   CheckCircleIcon,
   ExclamationCircleIcon,
   InformationCircleIcon,
@@ -25,14 +35,20 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { Dialog, DialogContent, DialogContentText } from "@mui/material";
 import ReactLoading from "react-loading";
+import { useSelector } from "react-redux";
+import { selectCz, selectSk } from "../slices/townsSlice";
+import Link from "next/link";
 
 function Forms() {
   const storage = getStorage(app);
+  const czTowns = useSelector(selectCz);
+  const skTowns = useSelector(selectSk);
 
   const inputCountry = useRef(null);
   const inputCity = useRef(null);
   const inputPlace = useRef(null);
   const inputPerformer = useRef(null);
+  const inputPerformance = useRef(null);
   const [startDate, setStartDate] = useState(new Date());
 
   const inputDescription = useRef(null);
@@ -49,7 +65,10 @@ function Forms() {
   const [characterCount, setCharacterCount] = useState(0);
   const [formAlert, setFormAlert] = useState("formAlert hidden");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [loading, setLoading] = useState("spinner hidden");
+  const [dialogText, setDialogText] = useState("");
+
+  const [addConfirmed, setAddConfirmed] = useState(false);
+  const [removeSpinner, setRemoveSpinner] = useState(false);
 
   const [pictureAlertText, setPictureAlertText] = useState(
     "hidden formAlertText"
@@ -59,11 +78,20 @@ function Forms() {
   const [performerAlertText, setPerformerAlertText] = useState(
     "hidden formAlertText"
   );
+  const [deletePerformanceAlertText, setDeletePerformanceAlertText] = useState(
+    "hidden formAlertText"
+  );
   const [performerAlertBorder, setPerformerAlertBorder] = useState("input");
   const [descriptionAlertText, setDescriptionAlertText] = useState(
     "hidden formAlertText"
   );
   const [descriptionAlertBorder, setDescriptionAlertBorder] = useState("input");
+  const [cities, setCities] = useState([...czTowns]);
+
+  const [performances, setPerformances] = useState([]);
+  const [performancesLength, setPerformancesLength] = useState(
+    performances.length
+  );
 
   const auth = getAuth();
 
@@ -107,7 +135,7 @@ function Forms() {
       : (setDescriptionAlertBorder("input"), setDescriptionAlertText("hidden"));
 
     if (isValid === true) {
-      setLoading("spinner");
+      setAddConfirmed(true);
       setFormAlert("formAlert hidden");
       const uploadTask = ref(storage, `/images/${file.name}`);
       setImage(null);
@@ -137,7 +165,7 @@ function Forms() {
               })
                 .then(() => {
                   inputFile.current.value = null;
-                  inputCity.current.value = "";
+                  // inputCity.current.value = "";
                   inputPlace.current.value = "";
                   setStartDate(new Date());
                   inputPerformer.current.value = "";
@@ -148,8 +176,10 @@ function Forms() {
                   setImage([downloadURL]);
                 })
                 .then(() => {
-                  setLoading("spinner hidden");
+                  setAddConfirmed(false);
+                  setDialogText("Vystoupení vloženo");
                   setDialogOpen(true);
+                  restoreData();
                 });
             } catch (e) {
               console.error("Error adding document: ", e);
@@ -182,22 +212,82 @@ function Forms() {
     signOut(auth);
   };
 
+  const handleCityChange = () => {
+    const curCountry = inputCountry.current.value;
+    if (curCountry === "Česko") {
+      setCities([...czTowns]);
+    } else {
+      setCities([...skTowns]);
+    }
+  };
+
+  const removePerformance = async (e) => {
+    e.preventDefault();
+    if (inputPerformance.current.value === "default") {
+      setDeletePerformanceAlertText("formAlertText");
+    } else {
+      try {
+        setRemoveSpinner(true);
+        setDeletePerformanceAlertText("hidden formAlertText");
+        e.preventDefault();
+        const colRef = doc(db, "vystoupeni", inputPerformance.current.value);
+        await deleteDoc(colRef);
+        await restoreData();
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  const restoreData = async () => {
+    try {
+      const q = query(collection(db, "vystoupeni"), orderBy("date"));
+      const snapshot = await getDocs(q);
+
+      setPerformances(
+        snapshot.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id };
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    setPerformancesLength((prev) => {
+      if (prev > performances.length) {
+        setRemoveSpinner(false);
+        setDialogText("Vystoupení smazáno");
+        setDialogOpen(true);
+      }
+      return performances.length;
+    });
+  }, [performances]);
+
+  useEffect(() => {
+    restoreData();
+  }, []);
+
   return (
-    <div className="flex flex-1 flex-col items-center  mt-16">
+    <div className="flex flex-1 flex-col w-full mt-16 ml-auto mr-auto justify-center items-center lg:items-baseline lg:flex-row">
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
         <DialogContent>
-          <DialogContentText className="flex items-center h-32 w-96 justify-center">
+          <DialogContentText className="flex flex-col items-center h-32 w-56 justify-center">
             <XCircleIcon
               className="h-7 absolute top-1 right-1 cursor-pointer"
               onClick={() => setDialogOpen(false)}
             />
             <CheckCircleIcon className="h-12 text-green-300" />
-            <p className="text-lg pl-1">Vystoupení vloženo</p>
+            <p className="text-xl ">{dialogText}</p>
+            <Link href="/" className="text-sm pt-1 underline">
+              Přejít do sekce Vystoupení
+            </Link>
           </DialogContentText>
         </DialogContent>
       </Dialog>
 
-      <div className="self-end mb-2">
+      <div className="self-end mb-2 hidden">
         <span className="mr-4 in invisible">{`účet: ${userEmail}`}</span>
         <button
           onClick={signOutAcc}
@@ -206,7 +296,7 @@ function Forms() {
           Odhlásit se
         </button>
       </div>
-      <div className="p-5  border border-slate-500 shadow-sm rounded-lg bg-gray-100 w-96 my-auto">
+      <div className="p-5 border shadow-md rounded-lg w-11/12 max-w-md mt-12 ml-4 mr-4">
         <h2 className="text-xl font-semibold">Přidat vystoupení</h2>
         <div className="border-b border-slate-500 mb-5 mt-2 w-10" />
 
@@ -252,8 +342,9 @@ function Forms() {
             <select
               name="country"
               id=""
-              className="p-1 rounded-md input"
+              className="p-1 rounded-md input bg-white cursor-pointer"
               ref={inputCountry}
+              onChange={handleCityChange}
             >
               <option value="Česko">Česko</option>
               <option value="Slovensko">Slovensko</option>
@@ -265,12 +356,14 @@ function Forms() {
             <select
               name="mesto"
               id=""
-              className="p-1 rounded-md input"
+              className="p-1 rounded-md input bg-white cursor-pointer"
               ref={inputCity}
             >
-              <option value="Praha">Praha</option>
-              <option value="Brno">Brno</option>
-              <option value="Ostrava">Ostrava</option>
+              {cities.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -281,7 +374,7 @@ function Forms() {
               ref={inputPlace}
               type="text"
               name="misto"
-              maxLength="30"
+              maxLength="40"
               required
             />
             <p className={placeAlertText}>Zadejte prosím místo vystoupení.</p>
@@ -294,7 +387,7 @@ function Forms() {
               ref={inputPerformer}
               type="text"
               name="performer"
-              maxLength="30"
+              maxLength="45"
               required
             />
             <p className={performerAlertText}>
@@ -305,13 +398,14 @@ function Forms() {
           <div className="inputDiv">
             <label htmlFor="datum">Datum:</label>
             <ReactDatePicker
-              showIcon
+              // withPortal
               selected={startDate}
               onChange={(date) => {
                 setStartDate(date);
               }}
               locale={cs}
-              className="input w-full"
+              showIcon
+              className="input w-full pl-10 bg-transparent cursor-pointer"
               dateFormat="d.M.yyyy"
               popperModifiers={[
                 {
@@ -322,6 +416,7 @@ function Forms() {
                 },
               ]}
             />
+            <CalendarDaysIcon className="h-6 absolute left-2 top-1/2 text-slate-600 -z-10" />
           </div>
 
           <div className="inputDiv">
@@ -353,31 +448,64 @@ function Forms() {
             className="button w-40 ml-auto mr-auto mt-5"
           >
             Vložit vystoupení
-            <ReactLoading
-              type={"spin"}
-              color={"red"}
-              width={40}
-              height={40}
-              className={loading}
-            />
+            {addConfirmed && (
+              <ReactLoading
+                type={"spin"}
+                color={"red"}
+                width={40}
+                height={40}
+                className="spinner"
+              />
+            )}
           </button>
         </form>
       </div>
 
-      <div className="m-5 p-5  border-2 shadow-sm rounded-lg bg-gray-50 w-96 hidden">
-        <h2 className="text-xl font-semibold">Odstranit vystoupení</h2>
-        <div className="border-b w-10 mb-5 mt-2" />
+      <div className="p-5 border shadow-md rounded-lg w-11/12 max-w-md mt-12 h-max ml-4 mr-4">
+        <h2 className="text-xl font-semibold">Odebrat vystoupení</h2>
+        <div className="border-b border-slate-500 mb-5 mt-2 w-10" />
         <form className="flex flex-col">
-          <label className="mt-3" htmlFor="id">
-            ID vystoupení:
-          </label>
-          <input className="input" type="text" name="id" required />
+          <div className="inputDiv">
+            <select
+              name="perfomance"
+              id=""
+              className="p-1 rounded-md input bg-white cursor-pointer"
+              ref={inputPerformance}
+            >
+              <option key="default" value="default">
+                Vyberte vystoupení
+              </option>
+              {performances.length > 0 &&
+                performances.map((perf) => {
+                  return (
+                    <option key={perf.id} value={perf.id}>
+                      {`${format(new Date(perf.date), "d.M.yyyy")} - ${
+                        perf.performer
+                      } - ${perf.city}`}
+                    </option>
+                  );
+                })}
+            </select>
+            <p className={deletePerformanceAlertText}>
+              Vyberte prosím vystoupení.
+            </p>
+          </div>
+
           <button
             onClick={removePerformance}
             type="submit"
-            className="button bg-red-400 active:bg-red-400 text-white w-50 ml-auto mr-auto"
+            className="button bg-red-400 active:bg-red-400 text-white w-50 ml-auto mr-auto mt-5"
           >
             Odstranit vystoupení
+            {removeSpinner && (
+              <ReactLoading
+                type={"spin"}
+                color={"red"}
+                width={40}
+                height={40}
+                className="spinner"
+              />
+            )}
           </button>
         </form>
       </div>

@@ -12,14 +12,12 @@ function Navigation() {
       className={`${toggleClassCheck} h-15 border-b flex justify-left items-start `}
     >
       <button
-        className="m-5 cursor-pointer hover:text-red-400 outline-none "
+        className="m-5 cursor-pointer hover:text-red-400 outline-none"
         onClick={handleClick}
       >
         Česko
       </button>
-      <div>Content
-        
-      </div>
+      <div>Content</div>
     </div>
   );
 }

@@ -11,7 +11,8 @@ export const filterSlice = createSlice({
       state.cz = action.payload;
     },
     sk: (state, action) => {
-      sk.place = action.payload;
+      // sk.place = action.payload;
+      state.sk = action.payload;
     },
   },
 });

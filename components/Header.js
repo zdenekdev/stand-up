@@ -59,11 +59,11 @@ function Header({ placeholder }) {
   });
 
   return (
-    <header className="fixed top-0 left-0 right-0 xl:right-64 flex justify-between h-16 z-40 bg-white pl-8 pr-5 py-1  border-b border-slate-500 transition duration-200 ease-out">
+    <header className="fixed top-0 left-0 right-0 xl:right-66 flex justify-between h-16 z-40 bg-white pl-4 pr-3 py-1 border-b border-slate-500 transition duration-200 ease-out lg:pl-8 lg:pr-7 xl:pr-3">
       {/* left */}
       <div onClick={() => router.push("/")} className=" flex items-center">
         <h1 className="text-xl cursor-pointer">
-          Vystoupeni<span className="text-xl text-gray-500 ">.cz</span>
+          StandUp<span className="text-xl text-gray-500 ">.cz</span>
         </h1>
       </div>
 
@@ -71,7 +71,7 @@ function Header({ placeholder }) {
       <div className="flex items-center space-x-4 text-gray-500">
         <div className="border-r-2 ">
           <Link href="#">
-            <MagnifyingGlassIcon className="mx-3 h-10 text-gray-600 rounded-full p-2 cursor-pointer  active:scale-95 hover:text-red-400" />
+            <MagnifyingGlassIcon className="mx-3 h-10 text-gray-600 rounded-full p-2 cursor-pointer active:scale-95 hover:text-red-400" />
           </Link>
         </div>
         <div className="flex items-center space-x-3 rounded-full">
@@ -83,14 +83,14 @@ function Header({ placeholder }) {
           />
           <div ref={menuRef}>
             <Bars3Icon
-              className="xl:hidden h-10 p-1 text-black cursor-pointer active:scale-95  hover:text-red-400"
+              className="xl:hidden h-8 text-black cursor-pointer active:scale-95 hover:text-red-400"
               onClick={() => {
                 setMenuOpen("translate-x-0 primaryNav");
               }}
             />
             <nav className={menuOpen}>
               <Bars3Icon
-                className="xl:invisible h-10 p-1 mr-5 mt-3 ml-auto cursor-pointer active:scale-95  hover:text-white"
+                className="xl:invisible h-8 pr-3 lg:pr-7 mt-4 ml-auto cursor-pointer active:scale-95 hover:text-white"
                 onClick={() => {
                   setMenuOpen("primaryNav");
                 }}
@@ -101,14 +101,11 @@ function Header({ placeholder }) {
                 </li>
                 <li className="relative menuLink">
                   <Link href="/account" className="flex items-center">
-                    Přidat vystoupení
-                    <PlusCircleIcon className="h-5 ml-2" />
+                    Přidat / odebrat vystoupení
+                    {/* <PlusCircleIcon className="h-5 ml-2" /> */}
                   </Link>
                 </li>
 
-                <li className="menuLink">
-                  <Link href="#">Videa</Link>
-                </li>
                 <li className="menuLink">
                   <Link href="#">Kontakt</Link>
                 </li>

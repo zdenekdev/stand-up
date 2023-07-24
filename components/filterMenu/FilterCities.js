@@ -1,5 +1,5 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { place, selectCountry, selectPlace } from "../../slices/filterSlice";
@@ -9,16 +9,23 @@ function FilterCities() {
   const dispatch = useDispatch();
   const changePlace = useSelector(selectPlace);
   const changeCountry = useSelector(selectCountry);
+  const prevCountryRef = useRef(changeCountry);
   const czTowns = useSelector(selectCz);
   const skTowns = useSelector(selectSk);
   let cities = [...czTowns];
 
   useEffect(() => {
-    if (changeCountry === "Česko") {
-      dispatch(place("Všechna města"));
-    } else if (changeCountry === "Slovensko") {
+    if (prevCountryRef.current !== changeCountry) {
       dispatch(place("Všechna města"));
     }
+    // console.log("changeCountry", changeCountry);
+    // console.log("prevCountryRef", prevCountryRef.current);
+    // if (changeCountry === "Česko") {
+    //   dispatch(place("Všechna města"));
+    // } else if (changeCountry === "Slovensko") {
+    //   dispatch(place("Všechna města"));
+    // }
+    prevCountryRef.current = changeCountry;
   }, [changeCountry]);
 
   if (changeCountry === "Česko") {
@@ -48,7 +55,11 @@ function FilterCities() {
         <p className="filterBtn text-gray-500 font-light">Doporučená města:</p>
         <ul className="mt-2">
           {cities.map((city) => (
-            <li className="filterBtn" onClick={() => dispatch(place(city))}>
+            <li
+              key={city}
+              className="filterBtn"
+              onClick={() => dispatch(place(city))}
+            >
               {city}
             </li>
           ))}

@@ -9,12 +9,18 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD8Rqzxln-vlsuyIm5KC6mMsUrYgW2jThA",
-  authDomain: "standup2-1bd9a.firebaseapp.com",
-  projectId: "standup2-1bd9a",
-  storageBucket: "standup2-1bd9a.appspot.com",
-  messagingSenderId: "141499353915",
-  appId: "1:141499353915:web:86ab70270e990441ec451e",
+  // apiKey: "AIzaSyD8Rqzxln-vlsuyIm5KC6mMsUrYgW2jThA",
+  // authDomain: "standup2-1bd9a.firebaseapp.com",
+  // projectId: "standup2-1bd9a",
+  // storageBucket: "standup2-1bd9a.appspot.com",
+  // messagingSenderId: "141499353915",
+  // appId: "1:141499353915:web:86ab70270e990441ec451e",
+  apiKey: "AIzaSyB9TWdxLz8jucbTxTpK97gM4PnYmcgV7A4",
+  authDomain: "standup3-e0014.firebaseapp.com",
+  projectId: "standup3-e0014",
+  storageBucket: "standup3-e0014.appspot.com",
+  messagingSenderId: "1097179240683",
+  appId: "1:1097179240683:web:6869356006f1b585c6c6ae",
 };
 
 // Initialize Firebase

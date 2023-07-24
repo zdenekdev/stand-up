@@ -16,10 +16,24 @@ module.exports = {
         height: "height",
       },
       minWidth: {
+        80: "20rem",
         96: "24rem",
+      },
+      maxWidth: {
+        96: "24rem",
+      },
+      height: {
+        108: "27rem",
+        124: "31rem",
+        128: "32rem",
+        136: "34rem",
+        140: "35rem",
       },
       maxHeight: {
         100: "40rem",
+        128: "32rem",
+        136: "34rem",
+        140: "35rem",
       },
       spacing: {
         66: "16.5rem",
@@ -30,6 +44,7 @@ module.exports = {
         "1/1.5": "1.5 / 1",
       },
       screens: {
+        xsm: "500px",
         "3xl": "1910px",
       },
       inset: {

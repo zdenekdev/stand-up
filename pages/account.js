@@ -11,7 +11,7 @@ function Account() {
   const [user, loading, error] = useAuthState(auth);
 
   return (
-    <div className="min-h-screen flex flex-col ">
+    <div className="min-h-screen flex flex-col">
       <Header />
       {/* {!user ? <Login /> : <Forms />} */}
 
