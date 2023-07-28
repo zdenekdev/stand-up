@@ -19,10 +19,10 @@ function Footer() {
             Vystoupení
           </Link>
           <Link className="linkHover" href="/account">
-            Přidat vystoupení
+            Přidat/Odebrat vystoupení
           </Link>
 
-          <a className="linkHover" href="#">
+          <a className="cursor-default" href="#">
             Kontakt
           </a>
         </div>

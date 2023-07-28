@@ -70,8 +70,8 @@ function Header({ placeholder }) {
       {/* right */}
       <div className="flex items-center space-x-4 text-gray-500">
         <div className="border-r-2 ">
-          <Link href="#">
-            <MagnifyingGlassIcon className="mx-3 h-10 text-gray-600 rounded-full p-2 cursor-pointer active:scale-95 hover:text-red-400" />
+          <Link className="cursor-default" href="#">
+            <MagnifyingGlassIcon className="mx-3 h-10 text-gray-600 rounded-full p-2 cursor-default" />
           </Link>
         </div>
         <div className="flex items-center space-x-3 rounded-full">
@@ -111,13 +111,15 @@ function Header({ placeholder }) {
                   }
                 >
                   <Link href="/account" className="flex items-center">
-                    Přidat / odebrat vystoupení
+                    Přidat/Odebrat vystoupení
                     {/* <PlusCircleIcon className="h-5 ml-2" /> */}
                   </Link>
                 </li>
 
-                <li className="menuLink">
-                  <Link href="#">Kontakt</Link>
+                <li className="">
+                  <Link className="cursor-default" href="#">
+                    Kontakt
+                  </Link>
                 </li>
               </ul>
               <div className="border border-gray-500 mb-11 w-52 mx-auto" />
