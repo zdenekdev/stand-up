@@ -15,12 +15,9 @@ I have used Firebase as the cloud-based database.<br/>
 » Tailwind CSS <br>
 » Firebase Baas<br>
 
+<h3>Home Page</h3>
+<hr>
 <br>
-
-<!-- <h2>Screenshots of the Project 📸</h2>
-<br> -->
-<h3 align='center'>Home Page</h3>
-
 <div align='center'>
 <img src='https://raw.githubusercontent.com/zdenekdev/portfolio/main/src/images/projects/stand-up.webp'/>
 
