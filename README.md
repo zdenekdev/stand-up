@@ -16,12 +16,12 @@ I have used Redux for managing and updating the application state and Firebase a
 
 <h2>Screenshots of the project</h2>
 
+<br>
+
 <h3>Home page</h3>
 
 <div align='center'>
-
 <img  style="border: 2px solid  gray; border-radius:15px" src='https://raw.githubusercontent.com/zdenekdev/portfolio/main/src/images/projects/stand-up-border.png'/>
-
 </div>
 
 <br><br>
