@@ -1,9 +1,8 @@
-<!-- <div align='center'><img style="width:16%" src='notYet'/></div> -->
-
-<h3>About the project</h3>
+<div align='center'><img style="width:25%" src='https://raw.githubusercontent.com/zdenekdev/stand-up/main/images/New%20Project.png'/></div>
+<h2>About the project</h2>
 
 <p><b>Stand up events</b> is a web application that allows users to search for stand up events and shows featuring their favorite comedians. This web application allows to filter events by country, city, and selected date range. Additionally, users can add new events and delete existing ones.
-I have used Firebase as the cloud-based database.
+I have used Redux for managing and updating the application state and Firebase as the cloud-based database.
 </p>
 
 👉 Live Demo: <a href='https://stand-up-silk-five.vercel.app/'>Stand up events Demo</a>
@@ -15,18 +14,20 @@ I have used Firebase as the cloud-based database.
 » Tailwind CSS <br>
 » Firebase Baas<br>
 
-<h3>Home Page</h3>
-<hr>
-<br>
+<h2>Screenshots of the Project</h2>
+
+<h3>Home page</h3>
+
 <div align='center'>
-<img src='https://raw.githubusercontent.com/zdenekdev/portfolio/main/src/images/projects/stand-up.webp'/>
+
+<img  style="border: 2px solid  gray; border-radius:15px" src='https://raw.githubusercontent.com/zdenekdev/portfolio/main/src/images/projects/stand-up-border.png'/>
 
 </div>
 
 <br><br>
 
-<h3 align='center'>Add/Remove performances Page</h3>
+<h3>Add/Remove performances page</h3>
 
 <div align='center'>
-<img src='https://raw.githubusercontent.com/zdenekdev/portfolio/main/src/images/projects/add-rem-perf.webp'/>
+<img src='https://raw.githubusercontent.com/zdenekdev/portfolio/main/src/images/projects/add-rem-perf-border.png'/>
 </div>
