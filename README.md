@@ -1,7 +1,7 @@
 <div align='center'><img style="width:25%" src='https://raw.githubusercontent.com/zdenekdev/stand-up/main/images/New%20Project.png'/></div>
 <h2>About the project</h2>
 
-<p><b>Stand up events</b> is a web application that allows users to search for stand up events and shows featuring their favorite comedians. This web application allows to filter events by country, city, and selected date range. Additionally, users can add new events and delete existing ones.
+<p><b>The Stand up events</b> web application allows users to search for stand up events and shows featuring their favorite comedians. This web application allows to filter events by country, city, and selected date range. Additionally, users can add new events and delete existing ones.
 I have used Redux for managing and updating the application state and Firebase as the cloud-based database.
 </p>
 
@@ -14,7 +14,7 @@ I have used Redux for managing and updating the application state and Firebase a
 » Tailwind CSS <br>
 » Firebase Baas<br>
 
-<h2>Screenshots of the Project</h2>
+<h2>Screenshots of the project</h2>
 
 <h3>Home page</h3>
 
