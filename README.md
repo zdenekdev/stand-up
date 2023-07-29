@@ -1,9 +1,9 @@
 <!-- <div align='center'><img style="width:16%" src='notYet'/></div> -->
 
-<h2>About the project</h2>
+<h3>About the project</h3>
 
 <p><b>Stand up events</b> is a web application that allows users to search for stand up events and shows featuring their favorite comedians. This web application allows to filter events by country, city, and selected date range. Additionally, users can add new events and delete existing ones.
-I have used Firebase as the cloud-based database.<br/>
+I have used Firebase as the cloud-based database.
 </p>
 
 👉 Live Demo: <a href='https://stand-up-silk-five.vercel.app/'>Stand up events Demo</a>
