@@ -29,6 +29,14 @@ I have also used Redux for managing and updating the application state and Fireb
 
 <br><br>
 
+<h3>Date range picker</h3>
+
+<div align='center'>
+<img src='https://raw.githubusercontent.com/zdenekdev/portfolio/main/src/images/projects/stand-up-date-range-picker.png'/>
+</div>
+
+<br><br>
+
 <h3>Add/Remove performances page</h3>
 
 <div align='center'>
