@@ -3,7 +3,7 @@
 
 <p><b>The Stand up events</b> web application allows users to search for stand up events and shows featuring their favorite comedians. This web application allows to filter events by country, city, and selected date range. Additionally, users can add new events and delete existing ones.
 </p>
-<p>To allow date range selection, I have used <b><a href="https://www.npmjs.com/package/react-date-range">react-date-range</b></a> library and the date utility library <b><a href="https://date-fns.org/">date-fns</b></a> for custom date ranges</p>
+<p>To allow users to select custom date ranges, I have used <a href="https://www.npmjs.com/package/react-date-range">react-date-range</a> library and the date utility library <a href="https://date-fns.org/">date-fns</a> for managing default date ranges.</p>
 <p>
 I have used Redux for managing and updating the application state and Firebase as the cloud-based database.
 </p>
