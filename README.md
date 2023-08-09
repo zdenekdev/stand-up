@@ -5,7 +5,7 @@
 </p>
 <p>To allow users to select custom date ranges, I have used <a href="https://www.npmjs.com/package/react-date-range">react-date-range</a> library and the date utility library <a href="https://date-fns.org/">date-fns</a> for managing default date ranges.</p>
 <p>
-I have used Redux for managing and updating the application state and Firebase as the cloud-based database.
+I have also used Redux for managing and updating the application state and Firebase as the cloud-based database.
 </p>
 
 👉 Live Demo: <a href='https://stand-up-silk-five.vercel.app/'>Stand up events Demo</a>
