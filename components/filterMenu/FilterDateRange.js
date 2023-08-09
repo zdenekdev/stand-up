@@ -51,7 +51,7 @@ function FilterDateRange({ selected }) {
       )}`,
     },
     {
-      title: "Tento víkend",
+      title: "Tento víkend (Pá-Ne)",
       date: `${format(definedDates.friday, "d. M.")} - ${format(
         definedDates.sunday,
         "d. M."
