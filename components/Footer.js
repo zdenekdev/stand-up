@@ -1,12 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebook,
-  faFacebookF,
-  faInstagram,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 function Footer() {
   return (
@@ -26,15 +21,20 @@ function Footer() {
             Kontakt
           </a>
         </div>
-        <div className=" w-28 flex items-center justify-between">
-          <a className="linkHover" href="#">
-            <FontAwesomeIcon className="h-5 " icon={faFacebookF} />
+        <div className=" w-16 flex items-center justify-between">
+          <a
+            className="linkHover text-gray-600"
+            target="_blank"
+            href="https://www.linkedin.com/in/kucerazdenek/"
+          >
+            <FontAwesomeIcon className="h-6" icon={faLinkedin} />
           </a>
-          <a className="linkHover" href="#">
-            <FontAwesomeIcon className="h-6" icon={faInstagram} />
-          </a>
-          <a className="linkHover" href="#">
-            <FontAwesomeIcon className="h-7 " icon={faYoutube} />
+          <a
+            className="linkHover text-gray-600"
+            target="_blank"
+            href="https://github.com/zdenekdev"
+          >
+            <FontAwesomeIcon className="h-6" icon={faGithub} />
           </a>
         </div>
       </div>

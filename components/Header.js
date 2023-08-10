@@ -14,12 +14,7 @@ import { DateRangePicker } from "react-date-range";
 import { cs } from "date-fns/locale";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebook,
-  faFacebookF,
-  faInstagram,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faCalendarPlus } from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
 
@@ -123,15 +118,20 @@ function Header({ placeholder }) {
                 </li>
               </ul>
               <div className="border border-gray-500 mb-11 w-52 mx-auto" />
-              <div className=" w-24 flex items-center  justify-between mx-auto text-stone-400">
-                <a className="hover:text-white" href="#">
-                  <FontAwesomeIcon className="h-4 " icon={faFacebookF} />
+              <div className=" w-16 flex items-center  justify-between mx-auto text-stone-400">
+                <a
+                  className="hover:text-white"
+                  target="_blank"
+                  href="https://www.linkedin.com/in/kucerazdenek/"
+                >
+                  <FontAwesomeIcon className="h-6 " icon={faLinkedin} />
                 </a>
-                <a className="hover:text-white" href="#">
-                  <FontAwesomeIcon className="h-5" icon={faInstagram} />
-                </a>
-                <a className="hover:text-white" href="#">
-                  <FontAwesomeIcon className="h-6 " icon={faYoutube} />
+                <a
+                  className="hover:text-white"
+                  target="_blank"
+                  href="https://github.com/zdenekdev"
+                >
+                  <FontAwesomeIcon className="h-6" icon={faGithub} />
                 </a>
               </div>
             </nav>
