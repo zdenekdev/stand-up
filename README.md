@@ -1,14 +1,14 @@
 <div align='center'><img style="width:25%" src='https://raw.githubusercontent.com/zdenekdev/stand-up/main/images/New%20Project.png'/></div>
 <h2>About the project</h2>
 
-<p><b>The Stand up events</b> web application allows users to search for stand up events and shows featuring their favorite comedians. This web application allows to filter events by country, city, and selected date range. Additionally, users can add new events and delete existing ones.
+<p><b>The Stand up events</b> web application enables users to search for stand up events and shows featuring their favorite comedians. This web application allows to filter events by country, city, and selected date range. Additionally, users can <b>add new events and delete existing ones.</b>
 </p>
 <p>To allow users to select custom date ranges, I have used <a href="https://www.npmjs.com/package/react-date-range">react-date-range</a> library and the date utility library <a href="https://date-fns.org/">date-fns</a> for managing default date ranges.</p>
 <p>
 I have also used Redux for managing and updating the application state and Firebase as the cloud-based database.
 </p>
 
-👉 Live Demo: <a href='https://stand-up-silk-five.vercel.app/'>Stand up events Demo</a>
+👉 Live Demo: <a href='https://stand-up-events.vercel.app/'>Stand up events Demo</a>
 
 <h3>Build with:</h3>
 
