@@ -1,3 +1,4 @@
+<br>
 <div align='center'><img style="width:25%" src='https://raw.githubusercontent.com/zdenekdev/stand-up/main/images/New%20Project.png'/></div>
 <h2>About the project</h2>
 
