@@ -1,21 +1,6 @@
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  PlusCircleIcon,
-} from "@heroicons/react/24/solid";
-import { FaceFrownIcon } from "@heroicons/react/24/outline";
-import { FormControl, InputLabel, Link, MenuItem, Select } from "@mui/material";
-
-import { format, setDate, toDate } from "date-fns";
-import { cs } from "date-fns/locale";
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query,
-  Timestamp,
-  where,
-} from "firebase/firestore";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
+import { format } from "date-fns";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { colRef, db } from "../firebase";
@@ -27,17 +12,10 @@ import {
   selectFilter,
   selectPlace,
 } from "../slices/filterSlice";
-import DRangePicker from "./filterMenu/FilterDateRange";
 import FilterCities from "./filterMenu/FilterCities";
-import Forms from "./Forms";
-import Navigation from "./Navigation";
-import Button from "./Navigation";
 import Performance from "./Performance";
 import FilterDateRange from "./filterMenu/FilterDateRange";
-import { connectStorageEmulator } from "firebase/storage";
 import FilterCountries from "./filterMenu/FilterCountries";
-import store from "../store";
-import { ClickAwayListener } from "@mui/base";
 import { useRouter } from "next/router";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import ReactLoading from "react-loading";

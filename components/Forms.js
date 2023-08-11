@@ -25,7 +25,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import {
   CalendarDaysIcon,
-  CalendarIcon,
   CheckCircleIcon,
   ExclamationCircleIcon,
   InformationCircleIcon,
@@ -436,11 +435,6 @@ function Forms() {
             <p className={descriptionAlertText}>Zadejte prosím popis.</p>
             <p className="absolute right-0 -bottom-6 text-right justify-self-end text-gray-500 text-sm">{`${characterCount}/150`}</p>
           </div>
-
-          {/* <div className={formAlert}>
-            <ExclamationCircleIcon className="text-red-400 h-7" />
-            <p className="pl-4">Opravte prosím chyby ve formuláři</p>
-          </div> */}
 
           <button
             type="submit"

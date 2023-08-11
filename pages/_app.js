@@ -3,11 +3,8 @@ import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
 import store from "../store";
 import { Provider } from "react-redux";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
-import { useState } from "react";
-import { Bars3Icon } from "@heroicons/react/20/solid";
 
 export default function App({ Component, pageProps }) {
   const progress = new ProgressBar({

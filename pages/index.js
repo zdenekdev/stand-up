@@ -1,12 +1,7 @@
 import Head from "next/head";
-import { useEffect } from "react";
 import Footer from "../components/Footer";
-import Forms from "../components/Forms";
 import Header from "../components/Header";
 import Performances from "../components/Performances";
-
-import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment, selectValue } from "../slices/filterSlice";
 
 function Home() {
   return (

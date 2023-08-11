@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 function Performance({ city, date, description, performer, place, url }) {
   const eventDate = date;

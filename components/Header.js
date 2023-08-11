@@ -1,21 +1,14 @@
-import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
   UserCircleIcon,
-  UsersIcon,
 } from "@heroicons/react/24/solid";
-import { PlusCircleIcon } from "@heroicons/react/20/solid";
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
-import { cs } from "date-fns/locale";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { faCalendarPlus } from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
 
 function Header({ placeholder }) {
