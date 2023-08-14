@@ -45,13 +45,17 @@ function FilterDateRange({ selected }) {
     { title: "Zítra", date: format(definedDates.tomorrow, "d. M.") },
     {
       title: "Tento týden",
-      date: `${format(definedDates.today, "d. M.")} - ${format(
-        definedDates.sunday,
-        "d. M."
-      )}`,
+      date:
+        format(definedDates.today, "yyyy-MM-dd") ===
+        format(definedDates.sunday, "yyyy-MM-dd")
+          ? format(definedDates.today, "d. M.")
+          : `${format(definedDates.today, "d. M.")} - ${format(
+              definedDates.sunday,
+              "d. M."
+            )}`,
     },
     {
-      title: "Tento víkend (Pá-Ne)",
+      title: "Tento víkend",
       date: `${format(definedDates.friday, "d. M.")} - ${format(
         definedDates.sunday,
         "d. M."
@@ -104,6 +108,19 @@ function FilterDateRange({ selected }) {
     }
   }, [selectedDateRange]);
 
+  const search = () => {
+    dispatch(after(format(new Date(startDate), "yyyy-MM-dd")));
+    dispatch(before(format(new Date(endDate), "yyyy-MM-dd")));
+    dispatch(
+      dateRangeT(
+        `${format(new Date(startDate), "dd. M.")} - ${format(
+          new Date(endDate),
+          "dd. M. yyyy"
+        )}`
+      )
+    );
+  };
+
   useEffect(() => {
     setCustomDrMenu("toggle");
 
@@ -124,19 +141,6 @@ function FilterDateRange({ selected }) {
     //   },
     // });
   }, [filter]);
-
-  const search = () => {
-    dispatch(after(format(new Date(startDate), "yyyy-MM-dd")));
-    dispatch(before(format(new Date(endDate), "yyyy-MM-dd")));
-    dispatch(
-      dateRangeT(
-        `${format(new Date(startDate), "dd. M.")} - ${format(
-          new Date(endDate),
-          "dd. M. yyyy"
-        )}`
-      )
-    );
-  };
 
   useEffect(() => {
     if (selected === null) {
@@ -194,7 +198,6 @@ function FilterDateRange({ selected }) {
               locale={cs}
               showMonthAndYearPickers={false}
               showDateDisplay={false}
-              // rangeColors={["#34495e"]}
               rangeColors={["#FD5B61"]}
             />
 
