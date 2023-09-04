@@ -20,6 +20,7 @@ export const filterSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { cz, sk } = filterSlice.actions;
 
+// selectors
 export const selectCz = (state) => state.towns.cz;
 export const selectSk = (state) => state.towns.sk;
 

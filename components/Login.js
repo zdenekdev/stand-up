@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Footer from "./Footer";
+import Header from "./Header";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
