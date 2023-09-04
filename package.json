@@ -23,6 +23,7 @@
     "@mui/material": "^5.11.4",
     "@next/font": "13.1.1",
     "@reduxjs/toolkit": "^1.9.1",
+    "@types/react-date-range": "^1.4.4",
     "date-fns": "^2.29.3",
     "firebase": "^9.15.0",
     "next": "13.1.1",

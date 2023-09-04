@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
@@ -10,33 +10,42 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
+import {
+  DateRangePicker,
+  DateRangeProps,
+  DefinedRange,
+  DefinedRangeProps,
+  Range,
+  RangeFocus,
+} from "react-date-range";
 
-function Header({ placeholder }) {
+function Header() {
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [menuOpen, setMenuOpen] = useState("primaryNav");
-  const menuRef = useRef();
+  const menuRef: RefObject<HTMLDivElement> = useRef(null);
   const router = useRouter();
 
-  const handleSelect = (ranges) => {
-    setStartDate(ranges.selection.startDate);
-    setEndDate(ranges.selection.endDate);
-  };
+  // const handleSelect = (ranges) => {
+  //   setStartDate(ranges.selection.startDate);
+  //   setEndDate(ranges.selection.endDate);
+  // };
 
-  const resetInput = () => {
-    setSearchInput("");
-  };
+  // const resetInput = () => {
+  //   setSearchInput("");
+  // };
 
-  const selectionRange = {
-    startDate: startDate,
-    endDate: endDate,
-    key: "selection",
-  };
+  // const selectionRange = {
+  //   startDate: startDate,
+  //   endDate: endDate,
+  //   key: "selection",
+  // };
 
   useEffect(() => {
-    let handler = (e) => {
-      if (!menuRef.current.contains(e.target) && window.innerWidth < 1910) {
+    let handler = (e: MouseEvent) => {
+      const targetNode = e.target as Node;
+      if (!menuRef.current?.contains(targetNode) && window.innerWidth < 1910) {
         setMenuOpen("primaryNav");
       }
     };
