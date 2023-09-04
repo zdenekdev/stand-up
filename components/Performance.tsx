@@ -1,6 +1,14 @@
 import React from "react";
+import { Perform } from "../types/index";
 
-function Performance({ city, date, description, performer, place, url }) {
+function Performance({
+  city,
+  date,
+  description,
+  performer,
+  place,
+  url,
+}: Perform) {
   const eventDate = date;
 
   return (
