@@ -1,4 +1,4 @@
-import { signOut } from "firebase/auth";
+import { User, signOut } from "firebase/auth";
 import {
   addDoc,
   collection,
@@ -15,7 +15,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { colRef, db, app, auth } from "../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Calendar } from "react-date-range";
@@ -43,20 +43,20 @@ function Forms() {
   const czTowns = useSelector(selectCz);
   const skTowns = useSelector(selectSk);
 
-  const inputCountry = useRef(null);
-  const inputCity = useRef(null);
-  const inputPlace = useRef(null);
-  const inputPerformer = useRef(null);
-  const inputPerformance = useRef(null);
-  const [startDate, setStartDate] = useState(new Date());
+  const inputCountry = useRef<HTMLSelectElement>(null);
+  const inputCity = useRef<HTMLSelectElement>(null);
+  const inputPlace = useRef<HTMLInputElement>(null);
+  const inputPerformer = useRef<HTMLInputElement>(null);
+  const inputPerformance = useRef<HTMLSelectElement>(null);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
 
-  const inputDescription = useRef(null);
-  const inputFile = useRef(null);
+  const inputDescription = useRef<HTMLTextAreaElement>(null);
+  const inputFile = useRef<HTMLInputElement>(null);
 
-  const [imgFormat, setImgFormat] = useState(null);
-  const [file, setFile] = useState(null);
-  const [image, setImage] = useState(null);
-  const router = useRouter(null);
+  const [imgFormat, setImgFormat] = useState<null | string>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [image, setImage] = useState<string | string[] | null>(null);
+  const router = useRouter();
   const [userEmail, setUserEmail] = useState("");
   const [pictureSize, setPictureSize] = useState("formAlert hidden");
   const [isPicture, setIsPicture] = useState("formAlert hidden");
@@ -87,17 +87,21 @@ function Forms() {
   const [descriptionAlertBorder, setDescriptionAlertBorder] = useState("input");
   const [cities, setCities] = useState([...czTowns]);
 
-  const [performances, setPerformances] = useState([]);
+  const [performances, setPerformances] = useState<{ id: string }[] | []>([]);
   const [performancesLength, setPerformancesLength] = useState(
     performances.length
   );
 
   const auth = getAuth();
 
+  // useEffect(() => {
+  //   console.log("inputFile value", typeof inputFile.current!.value);
+  // }, []);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserEmail(user.email);
+        setUserEmail(user.email!);
       } else {
         // User is signed out
         // ...
@@ -105,29 +109,29 @@ function Forms() {
     });
   }, []);
 
-  const addPerformance = (e) => {
+  const addPerformance = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     let isValid = true;
 
-    !inputFile.current.value
+    !inputFile.current?.value
       ? (setPictureAlertText("formAlertText"), (isValid = false))
       : setPictureAlertText("hidden");
 
-    !inputPlace.current.value.length
+    !inputPlace.current?.value.length
       ? (setPlaceAlertBorder("input border-red-500"),
         setPlaceAlertText("formAlertText"),
         (isValid = false))
       : (setPlaceAlertBorder("input border-slate-500"),
         setPlaceAlertText("hidden"));
 
-    !inputPerformer.current.value.length
+    !inputPerformer.current?.value.length
       ? (setPerformerAlertBorder("input border-red-500"),
         setPerformerAlertText("formAlertText"),
         (isValid = false))
       : (setPerformerAlertBorder("input border-slate-500"),
         setPerformerAlertText("hidden"));
 
-    !inputDescription.current.value.length
+    !inputDescription.current?.value.length
       ? (setDescriptionAlertBorder("input border-red-500"),
         setDescriptionAlertText("formAlertText"),
         (isValid = false))
@@ -136,10 +140,10 @@ function Forms() {
     if (isValid === true) {
       setAddConfirmed(true);
       setFormAlert("formAlert hidden");
-      const uploadTask = ref(storage, `/images/${file.name}`);
+      const uploadTask = ref(storage, `/images/${file?.name}`);
       setImage(null);
 
-      uploadBytesResumable(uploadTask, file).on(
+      uploadBytesResumable(uploadTask, file!).on(
         "state_changed",
         (snapshot) => {},
         (error) => {
@@ -150,25 +154,25 @@ function Forms() {
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           getDownloadURL(
-            uploadBytesResumable(uploadTask, file).snapshot.ref
+            uploadBytesResumable(uploadTask, file!).snapshot.ref
           ).then((downloadURL) => {
             try {
               const docRef = addDoc(colRef, {
-                country: inputCountry.current.value,
-                city: inputCity.current.value,
-                place: inputPlace.current.value,
-                performer: inputPerformer.current.value,
-                date: format(new Date(startDate), "yyyy-MM-dd"),
-                description: inputDescription.current.value,
+                country: inputCountry.current?.value,
+                city: inputCity.current?.value,
+                place: inputPlace.current?.value,
+                performer: inputPerformer.current?.value,
+                date: format(new Date(startDate!), "yyyy-MM-dd"),
+                description: inputDescription.current?.value,
                 url: downloadURL,
               })
                 .then(() => {
-                  inputFile.current.value = null;
+                  inputFile.current!.value = "";
                   // inputCity.current.value = "";
-                  inputPlace.current.value = "";
+                  inputPlace.current!.value = "";
                   setStartDate(new Date());
-                  inputPerformer.current.value = "";
-                  inputDescription.current.value = "";
+                  inputPerformer.current!.value = "";
+                  inputDescription.current!.value = "";
                   setCharacterCount(0);
                 })
                 .then(() => {
@@ -189,15 +193,15 @@ function Forms() {
     }
   };
 
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setFile(e.target.files[0]);
-      setImgFormat(e.target.files[0].type);
-      setImage(URL.createObjectURL(e.target.files[0]));
-      e.target.files[0].size > 500000
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files![0]) {
+      setFile(e.target.files![0]);
+      setImgFormat(e.target.files![0].type!);
+      setImage(URL.createObjectURL(e.target.files![0]));
+      e.target.files![0].size > 500000
         ? setPictureSize("formAlert")
         : setPictureSize("formAlert hidden");
-      e.target.files[0].type.includes("image")
+      e.target.files![0].type.includes("image")
         ? setIsPicture("formAlert hidden")
         : setIsPicture("formAlert");
     } else {
@@ -212,7 +216,7 @@ function Forms() {
   };
 
   const handleCityChange = () => {
-    const curCountry = inputCountry.current.value;
+    const curCountry = inputCountry.current!.value;
     if (curCountry === "Česko") {
       setCities([...czTowns]);
     } else {
@@ -220,16 +224,16 @@ function Forms() {
     }
   };
 
-  const removePerformance = async (e) => {
+  const removePerformance = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (inputPerformance.current.value === "default") {
+    if (inputPerformance.current!.value === "default") {
       setDeletePerformanceAlertText("formAlertText");
     } else {
       try {
         setRemoveSpinner(true);
         setDeletePerformanceAlertText("hidden formAlertText");
         e.preventDefault();
-        const colRef = doc(db, "vystoupeni", inputPerformance.current.value);
+        const colRef = doc(db, "vystoupeni", inputPerformance.current!.value);
         await deleteDoc(colRef);
         await restoreData();
       } catch (e) {
@@ -373,7 +377,7 @@ function Forms() {
               ref={inputPlace}
               type="text"
               name="misto"
-              maxLength="40"
+              maxLength={40}
               required
             />
             <p className={placeAlertText}>Zadejte prosím místo vystoupení.</p>
@@ -386,7 +390,7 @@ function Forms() {
               ref={inputPerformer}
               type="text"
               name="performer"
-              maxLength="45"
+              maxLength={45}
               required
             />
             <p className={performerAlertText}>
@@ -423,11 +427,10 @@ function Forms() {
             <textarea
               className={descriptionAlertBorder}
               ref={inputDescription}
-              type="text"
               name="description"
               required
-              rows="4"
-              maxLength="150"
+              rows={4}
+              maxLength={150}
               onChange={(e) => {
                 setCharacterCount(e.target.value.length);
               }}
@@ -470,7 +473,7 @@ function Forms() {
                 Vyberte vystoupení
               </option>
               {performances.length > 0 &&
-                performances.map((perf) => {
+                performances.map((perf: any) => {
                   return (
                     <option key={perf.id} value={perf.id}>
                       {`${format(new Date(perf.date), "d.M.yyyy")} - ${
