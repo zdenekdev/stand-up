@@ -19,6 +19,7 @@ import FilterCountries from "./filterMenu/FilterCountries";
 import { useRouter } from "next/router";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import ReactLoading from "react-loading";
+import { Performances } from "../types";
 
 function Performances() {
   // date range picker --
@@ -40,9 +41,9 @@ function Performances() {
   const range = `${formattedStartDate} - ${formattedEndDate}`;
 
   //get collection data --
-  const arrPerformances = [];
+  const arrPerformances: Performances[] = [];
 
-  const [performances, setPerformances] = useState([]);
+  const [performances, setPerformances] = useState<Performances[]>([]);
   const [prePerformances, setPrePerformances] = useState();
 
   const [date, setdate] = useState(range);
@@ -54,7 +55,7 @@ function Performances() {
   const beforeDate = useSelector(selectBefore);
   const afterDate = useSelector(selectAfter);
 
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState<number | null>(null);
   const router = useRouter();
 
   const navData = [
@@ -72,11 +73,11 @@ function Performances() {
     },
   ];
 
-  const handle = (e) => {
-    setCityy(e.target.value);
-  };
+  // const handle = (e) => {
+  //   setCityy(e.target.value);
+  // };
 
-  const handleChangeDate = (e) => {};
+  // const handleChangeDate = (e) => {};
 
   const now = "2023-03-14";
 
@@ -132,10 +133,10 @@ function Performances() {
         orderBy("date")
       );
     }
-    getDocs(q)
+    getDocs(q!)
       .then((snapshot) => {
         snapshot.docs.map((doc) => {
-          arrPerformances.push({ ...doc.data(), id: doc.id });
+          arrPerformances.push({ ...doc.data(), id: doc.id } as Performances);
         });
         setPerformances(arrPerformances);
       })
@@ -146,10 +147,10 @@ function Performances() {
       });
   };
 
-  const handleSelect = (ranges) => {
-    setStartDate(ranges.selection.startDate);
-    setEndDate(ranges.selection.endDate);
-  };
+  // const handleSelect = (ranges) => {
+  //   setStartDate(ranges.selection.startDate);
+  //   setEndDate(ranges.selection.endDate);
+  // };
 
   useEffect(() => {
     funkce();
@@ -165,7 +166,7 @@ function Performances() {
 
   // navigation --
 
-  const toggle = (i) => {
+  const toggle = (i: number | null) => {
     if (selected === i) {
       return setSelected(null);
     }
@@ -173,21 +174,20 @@ function Performances() {
   };
 
   const changeSelected = () => {
-    console.log("změnilo se");
     return "content";
   };
 
-  let menuRef = useRef([
+  let menuRef = useRef<React.RefObject<HTMLDivElement>[]>([
     React.createRef(),
     React.createRef(),
     React.createRef(),
   ]);
 
   useEffect(() => {
-    let handler = (e) => {
-      const index = [];
+    let handler = (e: Event) => {
+      const index: boolean[] = [];
       menuRef.current.forEach((menu) => {
-        index.push(!menu.current.contains(e.target));
+        index.push(!menu.current!.contains(e.target as Node));
       });
       const menuIndex = index.findIndex((f) => f === false);
       if (menuIndex === -1) {
